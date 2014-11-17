@@ -25,7 +25,13 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 " Plugins used by me
+" Misc
+Plugin 'scrooloose/nerdtree'
 Plugin 'luochen1990/rainbow'
+
+" Haskell
+Plugin 'dag/vim2hs'
+Plugin 'eagletmt/neco-ghc'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Examples on how to use Vundle to manage plugins
@@ -163,3 +169,25 @@ endif
 " Use :RainbowToggle to disable/enable it
 let g:rainbow_active = 1
 
+
+"""""""""""""""""""""""""
+" vim2hs
+"""""""""""""""""""""""""
+" the script contains cabal/hlint/jmacro compilers under vim2hs/compiler.
+" Now, I only enabled hlint for haskell source code.
+" I am not sure if other compilers have been enabled.
+" When compiler hlint is set, to check haskell source file, type
+" :make
+" Set compiler to hlint
+au BufRead,BufNewFile *.hs compiler hlint
+
+" I am not sure about performance impact when multiline strings is enabled.
+" Let me disable it by default, until there is real requirement to enable this.
+" let g:haskell_multiline_strings = 1
+
+
+"""""""""""""""""""""""""""
+" neco-ghc (ghc-mod)
+"""""""""""""""""""""""""""
+" Enable omni-completion
+au BufRead,BufNewFile *.hs setlocal omnifunc=necoghc#omnifunc
