@@ -24,6 +24,9 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 
+" Plugins used by me
+Plugin 'luochen1990/rainbow'
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Examples on how to use Vundle to manage plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -152,3 +155,11 @@ if has("autocmd") && exists("+omnifunc")
                 \ setlocal omnifunc=syntaxcomplete#Complete |
                 \ endif
 endif 
+
+
+"""""""""""""""""""""""""
+" Enable rainbow plugin
+"""""""""""""""""""""""""
+" Use :RainbowToggle to disable/enable it
+let g:rainbow_active = 1
+
