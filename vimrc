@@ -29,6 +29,17 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'luochen1990/rainbow'
 
+" For vimshell
+" vimproc is needed for vimshell.
+" After installing vimproc, one have to make manually:
+" $ cd ~/.vim/bundle/vimproc.vim
+" $ make
+Plugin 'Shougo/vimproc.vim'
+Plugin 'Shougo/vimshell.vim'
+
+" python
+Plugin 'klen/python-mode'
+
 " Haskell
 Plugin 'dag/vim2hs'
 Plugin 'eagletmt/neco-ghc'
@@ -191,3 +202,10 @@ au BufRead,BufNewFile *.hs compiler hlint
 """""""""""""""""""""""""""
 " Enable omni-completion
 au BufRead,BufNewFile *.hs setlocal omnifunc=necoghc#omnifunc
+
+
+"""""""""""""""""""""""
+" pymode
+"""""""""""""""""""""""
+let g:pymode_options_max_line_length = 128
+let g:pymode_rope_lookup_project = 1
