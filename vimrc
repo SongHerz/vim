@@ -42,6 +42,8 @@ Plugin 'klen/python-mode'
 
 """ Haskell
 Plugin 'dag/vim2hs'
+" Display type of sub-exprs, err/wrn, expansion of splices
+Plugin 'eagletmt/ghcmod-vim'
 " A completion plugin for Haskell, using ghc-mod
 Plugin 'eagletmt/neco-ghc'
 
@@ -183,27 +185,53 @@ let g:rainbow_active = 1
 
 
 """""""""""""""""""""""""
-" vim2hs
 """""""""""""""""""""""""
-" the script contains cabal/hlint/jmacro compilers under vim2hs/compiler.
-" Now, I only enabled hlint for haskell source code.
-" I am not sure if other compilers have been enabled.
-" When compiler hlint is set, to check haskell source file, type
-" :make
-" Set compiler to hlint
-au BufRead,BufNewFile *.hs compiler hlint
+" Haskell Settings
+"""""""""""""""""""""""""
+"""""""""""""""""""""""""
 
-" I am not sure about performance impact when multiline strings is enabled.
-" Let me disable it by default, until there is real requirement to enable this.
-" let g:haskell_multiline_strings = 1
+" Remember if haskell related configurations have been initialized.
+let g:haskell_config_init_done = 0
 
+function HaskellConfig()
+    """""""""""""""""""""""""
+    " vim2hs
+    """""""""""""""""""""""""
+    " the script contains cabal/hlint/jmacro compilers under vim2hs/compiler.
+    " Now, I only enabled hlint for haskell source code.
+    " I am not sure if other compilers have been enabled.
+    " When compiler hlint is set, to check haskell source file, type
+    " :make
+    " Set compiler to hlint
+    compiler hlint
 
-"""""""""""""""""""""""""""
-" neco-ghc
-"""""""""""""""""""""""""""
-" Enable omni-completion
-au BufRead,BufNewFile *.hs setlocal omnifunc=necoghc#omnifunc
-let g:necoghc_enable_detailed_browse = 1
+    if !g:haskell_config_init_done
+        " I am not sure about performance impact when multiline strings is enabled.
+        " Let me disable it by default, until there is real requirement to enable this.
+        " let g:haskell_multiline_strings = 1
+    endif
+
+    """""""""""""""""""""""""""
+    " neco-ghc
+    """""""""""""""""""""""""""
+    " Enable omni-completion
+    setlocal omnifunc=necoghc#omnifunc
+
+    if !g:haskell_config_init_done
+        let g:necoghc_enable_detailed_browse = 1
+    endif
+
+    """"""""""""""""""""""""""
+    " ghcmod-vim
+    """"""""""""""""""""""""""
+    nnoremap <leader>t  :GhcModType<cr>
+    nnoremap <leader>c  :GhcModTypeClear<cr>
+    nnoremap <leader>e  :GhcModExpand<cr>
+
+    let g:haskell_config_init_done = 1
+endfunction
+
+au BufRead,BufNewFile *.hs call HaskellConfig()
 
 
 """""""""""""""""""""""
