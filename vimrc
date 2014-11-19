@@ -25,7 +25,7 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 " Plugins used by me
-" Misc
+""" Misc
 Plugin 'scrooloose/nerdtree'
 Plugin 'luochen1990/rainbow'
 
@@ -37,11 +37,12 @@ Plugin 'luochen1990/rainbow'
 Plugin 'Shougo/vimproc.vim'
 Plugin 'Shougo/vimshell.vim'
 
-" python
+""" python
 Plugin 'klen/python-mode'
 
-" Haskell
+""" Haskell
 Plugin 'dag/vim2hs'
+" A completion plugin for Haskell, using ghc-mod
 Plugin 'eagletmt/neco-ghc'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -198,10 +199,11 @@ au BufRead,BufNewFile *.hs compiler hlint
 
 
 """""""""""""""""""""""""""
-" neco-ghc (ghc-mod)
+" neco-ghc
 """""""""""""""""""""""""""
 " Enable omni-completion
 au BufRead,BufNewFile *.hs setlocal omnifunc=necoghc#omnifunc
+let g:necoghc_enable_detailed_browse = 1
 
 
 """""""""""""""""""""""
