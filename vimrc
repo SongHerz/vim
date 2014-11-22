@@ -62,6 +62,8 @@ Plugin 'a.vim'
 Plugin 'Rip-Rip/clang_complete'
 
 """ For Octave
+" FIXME: DETECT the directory of this vimrc file AUTOMATICALLY,
+"        and determine plugins paths dynamically.
 set rtp+=~/vim/octave/
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
