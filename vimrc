@@ -48,6 +48,9 @@ Plugin 'eagletmt/ghcmod-vim'
 Plugin 'eagletmt/neco-ghc'
 
 """ For C/C++
+" A few of quick commands to swtich between source files and header files quickly. 
+" ':help alternate' for information
+Plugin 'a.vim'
 " I installed libclang-dev for ubuntu 14.04,
 " but I think only install libclang-xx package is enough.
 "
@@ -55,6 +58,9 @@ Plugin 'eagletmt/neco-ghc'
 " because it analyze source code on the fly, and I do not
 " have to maintain ctags any more :D
 Plugin 'Rip-Rip/clang_complete'
+
+""" For Octave
+Plugin 'file://~/vim/octave', {'pinned': 1}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Examples on how to use Vundle to manage plugins
@@ -207,7 +213,11 @@ source $VIMRUNTIME/syntax/man.vim
 noremap <Up> gk
 noremap <Down> gj
 
-" For octave
+""""""""""""""""""""""
+""""""""""""""""""""""
+" Octave settings
+""""""""""""""""""""""
+""""""""""""""""""""""
 " Octave syntax
 augroup filetypedetect
     au! BufRead,BufNewFile *.m,*.oct set filetype=octave
@@ -303,7 +313,7 @@ let g:doxygen_enhanced_color=1
 """"""""""""""""""""""""
 " At least there is no libclang.so for ubuntu 14.04,
 " after installing libclang-dev package.
-let g:clang_library_path = "libclang-3.5.so.1"
+let g:clang_library_path = 'libclang-3.5.so.1'
 
 
 """"""""""""""""""""""
