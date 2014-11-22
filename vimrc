@@ -96,18 +96,31 @@ filetype plugin indent on    " required
 
 
 syntax on
+filetype plugin indent on
+
+set nocompatible
+set ruler
+set showcmd
 set number
 
 set incsearch
-set showcmd
 set hlsearch
 
 if has("gui_running")
-    set guifont=Monospace\ 12
+	colo default
+	" horizontal scroll bar
+	set guioptions+=b
+    " set guifont=Monospace\ 12
+	set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
+    set nowrap
+    " colorscheme koehler
 	set background=dark
     colorscheme zenburn
+    highlight Normal guifg=LightGray guibg=Black
+    highlight Visual guifg=NONE guibg=NONE gui=reverse
 else
 	set background=dark
+    set mouse=a
 endif
 
 " For code style guide
@@ -116,8 +129,12 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 
-" For system verilog
-autocmd BufNewFile,BufRead *.sv set filetype=verilog
+" file encoding
+set fileencodings=ucs-bom,utf-8,gb18030,default,latin1
+
+" Do not reset windows size to the same when open or close windows
+set noequalalways
+
 
 
 " For backup and swp file location
@@ -167,9 +184,28 @@ endfunction
 
 call InitBackupDir()
 
+"""""""""""""""""""
+" For fold methond
+"""""""""""""""""""
+" set foldmethod=syntax
+" Do not fold on startup
+" set foldlevel=100
 
-" For man plugin
+""""""""""""""""""""
+" For :Man command
+""""""""""""""""""""
 source $VIMRUNTIME/ftplugin/man.vim
+source $VIMRUNTIME/syntax/man.vim
+
+"""""""""""""""""""""""""""
+"""""""""""""""""""""""""""
+" General Key Mappings
+"""""""""""""""""""""""""""
+"""""""""""""""""""""""""""
+" Map Up and Down to go only one line of the window
+" not the whole line
+noremap <Up> gk
+noremap <Down> gj
 
 " For octave
 " Octave syntax
@@ -254,11 +290,26 @@ let g:pymode_rope_lookup_project = 1
 " C/C++ settings
 """"""""""""""""""""""
 """"""""""""""""""""""
+"""""""""""""""""""""""
+" For doxygen support
+"""""""""""""""""""""""
+let g:syntax_extra_c='doxygen'
+let g:syntax_extra_cpp='doxygen'
+let g:load_doxygen_syntax=1
+let g:doxygen_enhanced_color=1
 
 """"""""""""""""""""""""
 " clang_complete
 """"""""""""""""""""""""
 " At least there is no libclang.so for ubuntu 14.04,
 " after installing libclang-dev package.
-let g:clang_library_path = "libclang.so.1"
+let g:clang_library_path = "libclang-3.5.so.1"
 
+
+""""""""""""""""""""""
+""""""""""""""""""""""
+" HDL settings
+""""""""""""""""""""""
+""""""""""""""""""""""
+" For system verilog
+autocmd BufNewFile,BufRead *.sv set filetype=verilog
