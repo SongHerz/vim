@@ -47,6 +47,15 @@ Plugin 'eagletmt/ghcmod-vim'
 " A completion plugin for Haskell, using ghc-mod
 Plugin 'eagletmt/neco-ghc'
 
+""" For C/C++
+" I installed libclang-dev for ubuntu 14.04,
+" but I think only install libclang-xx package is enough.
+"
+" I think this is much better than omnicppcomplete,
+" because it analyze source code on the fly, and I do not
+" have to maintain ctags any more :D
+Plugin 'Rip-Rip/clang_complete'
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Examples on how to use Vundle to manage plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -239,3 +248,17 @@ au BufRead,BufNewFile *.hs call HaskellConfig()
 """""""""""""""""""""""
 let g:pymode_options_max_line_length = 128
 let g:pymode_rope_lookup_project = 1
+
+""""""""""""""""""""""
+""""""""""""""""""""""
+" C/C++ settings
+""""""""""""""""""""""
+""""""""""""""""""""""
+
+""""""""""""""""""""""""
+" clang_complete
+""""""""""""""""""""""""
+" At least there is no libclang.so for ubuntu 14.04,
+" after installing libclang-dev package.
+let g:clang_library_path = "libclang.so.1"
+
