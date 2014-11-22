@@ -28,6 +28,8 @@ Plugin 'gmarik/Vundle.vim'
 """ Misc
 Plugin 'scrooloose/nerdtree'
 Plugin 'luochen1990/rainbow'
+" Also the script 3239
+Plugin 'fholgado/minibufexpl.vim'
 
 " For vimshell
 " vimproc is needed for vimshell.
@@ -60,7 +62,7 @@ Plugin 'a.vim'
 Plugin 'Rip-Rip/clang_complete'
 
 """ For Octave
-Plugin 'file://~/vim/octave', {'pinned': 1}
+set rtp+=~/vim/octave/
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Examples on how to use Vundle to manage plugins
@@ -116,6 +118,7 @@ if has("gui_running")
 	colo default
 	" horizontal scroll bar
 	set guioptions+=b
+    " FIXME: CHECK SCREEN SIZE AND SET PROPER FONT AUTOMATICALLY
     " set guifont=Monospace\ 12
 	set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
     set nowrap
