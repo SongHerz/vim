@@ -1,0 +1,233 @@
+"""""""""""""""""""""""""""""""""""""""""""""""""
+" This file contains settings from my old vimrc,
+" that have not merged to the new vimrc yet.
+" Probably, the contents will never be merged at all.
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+set background=dark
+if has("gui_running")
+	colo default
+	" horizontal scroll bar
+	set guioptions+=b
+	set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
+	set nowrap
+    " colorscheme koehler
+    colorscheme zenburn
+    highlight Normal guifg=LightGray guibg=Black
+    highlight Visual guifg=NONE guibg=NONE gui=reverse
+else
+	set background=dark
+	set mouse=a
+endif
+
+
+"""""""""""""""""""
+" For fold methond
+"""""""""""""""""""
+set foldmethod=syntax
+" Do not fold on startup
+set foldlevel=100
+
+
+
+
+"""""""""""""""""""""""
+" For TaskList plugin
+"""""""""""""""""""""""
+nnoremap tl :TaskList<CR>
+
+
+
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" For C and C++ tags/cscope
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""
+" For tags only
+"""""""""""""""""
+" Function for generating ctags
+" src_files: source files to be tagged
+" tag: output ctags file
+function CtagsGenerate(src_files, tag)
+	" -I option for pasing headers like <unistd.h>
+	" For ctags arguments, see :help omnicppcomplete, section 3.2
+	execute ':!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q -I __wur,__THROW,__nonnull+' '-f' a:tag a:src_files
+endfunction
+
+" C/C++ System headers
+let C_CPP_Tag_Headers = '/usr/include/*'
+" C/C++ system tag path
+let C_CPP_Tag_Path = '~/.vim/tags/ccpptags'
+" Add system include files tags
+autocmd FileType c,cpp execute 'setlocal tags+=' . C_CPP_Tag_Path
+
+
+"""""""""""""""""""
+" For cscope only
+"""""""""""""""""""
+" Function for generating cscope reffile
+" src_dir: directories that contains sources
+" reffile: output reffile 
+function CscopeGenerate(src_dir, reffile)
+	execute ':!cscope -Rbq' '-s' a:src_dir '-f' a:reffile
+endfunction
+
+" C/C++ system headers directory
+let C_CPP_Cscope_Header_Dir = '/usr/include'
+" C/C++ system cscope reffile
+let C_CPP_Cscope_Reffile = '~/.vim/cscope/ccpp.out'
+" Add system cscope reffile
+autocmd FileType c,cpp execute 'cs add' C_CPP_Cscope_Reffile
+" Clear previous results in quickfix window
+set cscopequickfix=s-,c-,d-,i-,t-,e-
+" Map cscope cmds shortcuts
+nnoremap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+nnoremap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+nnoremap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+nnoremap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+nnoremap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+nnoremap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+nnoremap <C-\>i :cs find i <C-R>=expand("<cfile>")<CR><CR>
+nnoremap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+
+
+"""""""""""""""""""""""""""""""""""""""
+" For cscope/ctags shortcut binding
+"""""""""""""""""""""""""""""""""""""""
+function CscopeCtagsKeyBind(shortcut, cscope_src_dir, cscope_reffile, ctags_src_files, ctags_tag)
+	execute 'noremap <buffer>' a:shortcut ':' . 'call CscopeGenerate(' . "'" . a:cscope_src_dir . "'" . ',' "'" . a:cscope_reffile . "'" . ')' '<Bar>' 'call CtagsGenerate(' . "'" . a:ctags_src_files . "'" ',' "'" . a:ctags_tag . "'" . ')' . '<CR>'
+endfunction
+
+" C/C++ system cscope/ctags update shortcut
+let C_CPP_Cscope_Ctags_Shortcut = '<C-S-F12>'
+" Update system cscope/ctags
+" NOTE: Must use FileType event. BufReadPost event won't work, if file does
+" not exist.
+autocmd FileType c,cpp call CscopeCtagsKeyBind(C_CPP_Cscope_Ctags_Shortcut, C_CPP_Cscope_Header_Dir, C_CPP_Cscope_Reffile, C_CPP_Tag_Headers, C_CPP_Tag_Path)
+
+
+
+
+
+
+
+"""""""""""""""""""""""""
+" For taglist plugin
+"""""""""""""""""""""""""
+" Display tags only in the current buffer
+let Tlist_Show_One_File = 1
+" Exit vim if only the taglist window is currently opened
+let Tlist_Exit_OnlyWindow = 1
+" Show menu in gvim
+let Tlist_Show_Menu = 1
+" Process files even when the taglist window is not open
+let Tlist_Process_File_Always = 0
+" Display tab prototypes or tag names in the taglist window
+let Tlist_Display_Prototype = 0
+" Automatically open the taglist window, when vim is started
+" Turn off this feature, when work with winmanager
+let Tlist_Auto_Open = 0
+
+
+""""""""""""""""""""""
+" For winmanager plugin
+""""""""""""""""""""""
+let g:winManagerWindowLayout='FileExplorer|TagList'
+" Toggles the visibility of winmanager
+nnoremap wm :WMToggle<CR>
+" To the first explorer window
+nnoremap wf :FirstExplorerWindow<CR>
+" To the last explorer window
+nnoremap wb :BottomExplorerWindow<CR>
+
+
+"""""""""""""""""""""""""""""
+" For omni complete function
+"""""""""""""""""""""""""""""
+" Do not select first item
+" Show popup menu when there is only one match
+" Show preview window that contains tag information
+set completeopt=menuone,longest,preview
+
+
+
+"""""""""""""""""""
+" For Grep plugin
+"""""""""""""""""""
+nnoremap <silent> <F3> :Grep<CR>
+let Grep_Skip_Dirs = '.svn'
+let Grep_Skip_Files = '*.orgi* *~'
+
+
+" For ns3 code style
+" set ts=2
+" set sw=2
+" set sta
+" set et
+" set ai
+" set si
+" set cin
+" let c_no_bracket_error=1
+" let c_no_curly_error=1
+" let c_comment_strings=1
+" let c_gnu=1
+function GNU_Nil_Style_Setup()
+	setlocal tabstop=2 shiftwidth=2
+	setlocal smarttab expandtab
+	setlocal autoindent smartindent cindent
+	let c_no_bracket_error=1
+	let c_no_curly_error=1
+	let c_comment_strings=1
+	let c_gnu=1
+endfunction
+
+function GNU_Nil_Style_Check()
+	" Check its 1st line
+	let aLine = getline(1)
+	if match(aLine, '\cc-file-style\s*:\s*"gnu"') != -1
+	\ && match(aLine, '\cindent-tabs-mode\s*:\s*nil') != -1
+		call GNU_Nil_Style_Setup()
+	endif
+endfunction
+
+function NS3_Style_Check(filefullpath)
+	" Get its full path
+	if match(a:filefullpath, '\cns-\?3') != -1
+		call GNU_Nil_Style_Setup()
+	endif
+	" Cscope/Ctags generation shortcut
+	let shortcut='<C-F12>'
+	let cscope_header_dir='~/ns-3/repos/ns-3-allinone/ns-3-dev/src/'
+	let cscope_reffile='~/.vim/cscope/ns3.out'
+	let tag_headers='~/ns-3/repos/ns-3-allinone/ns-3-dev/src/*'
+	let tag_file='~/.vim/tags/ns3tag'
+	call CscopeCtagsKeyBind(shortcut, cscope_header_dir, cscope_reffile, tag_headers, tag_file)
+	execute 'setlocal tags+=' . tag_file
+	execute 'cs add' cscope_reffile
+endfunction
+
+autocmd BufReadPost *.h,*.c,*.cc call GNU_Nil_Style_Check()
+autocmd BufNewFile,BufReadPre *.h,*.cc call NS3_Style_Check(expand('<afile>:p'))
+
+" For FreeRTOS code style
+function FreeRTOS_Style_Check(filefullpath)
+	"Check file full path for 'FreeRTOS' pattern
+	if match(a:filefullpath, '\cFreeRTOS') != -1
+		setlocal tabstop=4 shiftwidth=4
+	endif
+	" Cscope/Ctags generation shortcut
+	let shortcut='<C-F12>'
+	let cscope_header_dir='~/FreeRTOS_Simulator/Posix_GCC_Simulator/FreeRTOS_Posix/'
+	let cscope_reffile='~/.vim/cscope/FreeRTOSSim.out'
+	let tag_headers='~/FreeRTOS_Simulator/Posix_GCC_Simulator/FreeRTOS_Posix/*'
+	let tag_file='~/.vim/tags/FreeRTOSSimTag'
+	call CscopeCtagsKeyBind(shortcut, cscope_header_dir, cscope_reffile, tag_headers, tag_file)
+	execute 'setlocal tags+=' . tag_file
+	execute 'cs add' cscope_reffile
+endfunction
+
+autocmd BufNewFile,BufReadPre *.[ch] call FreeRTOS_Style_Check(expand('<afile>:p'))
+
+
+
