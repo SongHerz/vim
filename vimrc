@@ -30,6 +30,16 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'luochen1990/rainbow'
 " Also the script 3239
 Plugin 'fholgado/minibufexpl.vim'
+" After installing, one have to make manually.
+" ruby-dev package is required on ubuntu 14.04.
+" Make sure the version matches the version linked by vim.
+" To check ruby version in vim, type
+" :ruby puts "#{RUBY_VERSION}-p#{RUBY_PATCHLEVEL}"
+" Extension making instructions:
+" $ cd ~/.vim/bundle/command-t/ruby/command-t
+" $ ruby extconf.rb
+" $ make
+Plugin 'https://github.com/wincent/command-t'
 
 " For vimshell
 " vimproc is needed for vimshell.
@@ -238,10 +248,26 @@ endif
 
 
 """""""""""""""""""""""""
+"""""""""""""""""""""""""
+" Misc Settings
+"""""""""""""""""""""""""
+"""""""""""""""""""""""""
+
+"""""""""""""""""""""""""
 " Enable rainbow plugin
 """""""""""""""""""""""""
 " Use :RainbowToggle to disable/enable it
 let g:rainbow_active = 1
+
+"""""""""""""""""""""""""
+" Command-T plugin
+"""""""""""""""""""""""""
+let g:CommandTMaxHeight = 30
+let g:CommandTMaxFiles = 500000
+let g:CommandTInputDebounce = 200
+let g:CommandTMaxCachedDirectories = 10
+nnoremap <leader>f :CommandT<CR>
+
 
 
 """""""""""""""""""""""""
