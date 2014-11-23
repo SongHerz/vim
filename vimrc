@@ -49,6 +49,12 @@ Plugin 'https://github.com/wincent/command-t'
 Plugin 'Shougo/vimproc.vim'
 Plugin 'Shougo/vimshell.vim'
 
+""" Color schemes
+Plugin 'Zenburn'
+" FIXME: DETECT the directory of this vimrc file AUTOMATICALLY,
+"        and determine plugins paths dynamically.
+set rtp+=~/vim/various_colors/
+
 """ python
 Plugin 'klen/python-mode'
 
