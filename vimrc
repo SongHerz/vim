@@ -350,7 +350,12 @@ let g:doxygen_enhanced_color=1
 """"""""""""""""""""""""
 " At least there is no libclang.so for ubuntu 14.04,
 " after installing libclang-dev package.
-let g:clang_library_path = 'libclang-3.5.so.1'
+if filereadable('/usr/lib/libclang.so.1')
+    let g:clang_library_path = '/usr/lib/libclang.so.1'
+else
+    let g:clang_library_path = 'libclang-3.5.so.1'
+endif
+
 
 
 """"""""""""""""""""""
