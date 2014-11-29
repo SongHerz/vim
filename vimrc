@@ -224,6 +224,14 @@ call InitBackupDir()
 source $VIMRUNTIME/ftplugin/man.vim
 source $VIMRUNTIME/syntax/man.vim
 
+"""""""""""""""""""""""""""""
+" For omni complete function
+"""""""""""""""""""""""""""""
+" Do not select first item
+" Show popup menu when there is only one match
+" Show preview window that contains tag information
+set completeopt=menuone,longest,preview
+
 """""""""""""""""""""""""""
 """""""""""""""""""""""""""
 " General Key Mappings
@@ -318,7 +326,9 @@ function HaskellConfig()
     """"""""""""""""""""""""""
     nnoremap <leader>t  :GhcModType<cr>
     nnoremap <leader>c  :GhcModTypeClear<cr>
+    nnoremap <leader>ti :GhcModTypeInsert<cr>
     nnoremap <leader>e  :GhcModExpand<cr>
+    nnoremap <leader>i  :GhcModInfo<cr>
 
     let g:haskell_config_init_done = 1
 endfunction
