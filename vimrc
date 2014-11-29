@@ -75,6 +75,11 @@ Plugin 'a.vim'
 " I think this is much better than omnicppcomplete,
 " because it analyze source code on the fly, and I do not
 " have to maintain ctags any more :D
+"
+" There is a problem for enter remapping in insert mode.
+" When omni-complete is activated once or twice, enter in insert mode will
+" input a plugin internal function name, not as new line any more.
+" Use `git checkout 6a7ad82` to get rid of the problem temporarily.
 Plugin 'Rip-Rip/clang_complete'
 
 """ For Octave
