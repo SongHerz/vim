@@ -75,6 +75,11 @@ Plugin 'a.vim'
 " I think this is much better than omnicppcomplete,
 " because it analyze source code on the fly, and I do not
 " have to maintain ctags any more :D
+"
+" There is a problem for enter remapping in insert mode.
+" When omni-complete is activated once or twice, enter in insert mode will
+" input a plugin internal function name, not as new line any more.
+" Use `git checkout 6a7ad82` to get rid of the problem temporarily.
 Plugin 'Rip-Rip/clang_complete'
 
 """ For Octave
@@ -224,6 +229,14 @@ call InitBackupDir()
 source $VIMRUNTIME/ftplugin/man.vim
 source $VIMRUNTIME/syntax/man.vim
 
+"""""""""""""""""""""""""""""
+" For omni complete function
+"""""""""""""""""""""""""""""
+" Do not select first item
+" Show popup menu when there is only one match
+" Show preview window that contains tag information
+set completeopt=menuone,longest,preview
+
 """""""""""""""""""""""""""
 """""""""""""""""""""""""""
 " General Key Mappings
@@ -318,7 +331,9 @@ function HaskellConfig()
     """"""""""""""""""""""""""
     nnoremap <leader>t  :GhcModType<cr>
     nnoremap <leader>c  :GhcModTypeClear<cr>
+    nnoremap <leader>ti :GhcModTypeInsert<cr>
     nnoremap <leader>e  :GhcModExpand<cr>
+    nnoremap <leader>i  :GhcModInfo<cr>
 
     let g:haskell_config_init_done = 1
 endfunction
