@@ -331,6 +331,8 @@ au BufRead,BufNewFile *.hs call HaskellConfig()
 """""""""""""""""""""""
 let g:pymode_options_max_line_length = 128
 let g:pymode_rope_lookup_project = 1
+" Ignore E221 multiple spaces before operator [pep8]
+let g:pymode_lint_ignore = "E221"
 
 """"""""""""""""""""""
 """"""""""""""""""""""
