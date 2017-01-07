@@ -46,24 +46,38 @@ Plugin 'https://github.com/wincent/command-t'
 " After installing vimproc, one have to make manually:
 " $ cd ~/.vim/bundle/vimproc.vim
 " $ make
-Plugin 'Shougo/vimproc.vim'
-Plugin 'Shougo/vimshell.vim'
+" Plugin 'Shougo/vimproc.vim'
+" Plugin 'Shougo/vimshell.vim'
 
 """ Color schemes
-Plugin 'Zenburn'
+" Plugin 'Zenburn'
 " FIXME: DETECT the directory of this vimrc file AUTOMATICALLY,
 "        and determine plugins paths dynamically.
 set rtp+=~/vim/various_colors/
+
+""" YouCompleteMe
+" python-dev package is required.
+" $ cd ~/.vim/bundle/YouCompleteMe
+" Check what feature to enable:
+" $ ./install.py -h
+" For me, C/C++ support is needed.
+" $ ./install.py --clang-completer
+" To enable all features
+" $ ./install.py --all
+Plugin 'Valloric/YouCompleteMe'
 
 """ python
 Plugin 'klen/python-mode'
 
 """ Haskell
-Plugin 'dag/vim2hs'
+" Plugin 'dag/vim2hs'
 " Display type of sub-exprs, err/wrn, expansion of splices
-Plugin 'eagletmt/ghcmod-vim'
+" Plugin 'eagletmt/ghcmod-vim'
 " A completion plugin for Haskell, using ghc-mod
-Plugin 'eagletmt/neco-ghc'
+" Plugin 'eagletmt/neco-ghc'
+
+"""" Search
+Plugin 'mileszs/ack.vim'
 
 """ For C/C++
 " A few of quick commands to swtich between source files and header files quickly. 
@@ -80,7 +94,7 @@ Plugin 'a.vim'
 " When omni-complete is activated once or twice, enter in insert mode will
 " input a plugin internal function name, not as new line any more.
 " Use `git checkout 6a7ad82` to get rid of the problem temporarily.
-Plugin 'Rip-Rip/clang_complete'
+" Plugin 'Rip-Rip/clang_complete'
 
 """ For Octave
 " FIXME: DETECT the directory of this vimrc file AUTOMATICALLY,
@@ -342,9 +356,18 @@ au BufRead,BufNewFile *.hs call HaskellConfig()
 
 
 """""""""""""""""""""""
+" YouCompleteMe
+"""""""""""""""""""""""
+" Do not use '<TAB>' to select
+" let g:ycm_key_list_select_completion = ['<Down>']
+
+
+"""""""""""""""""""""""
 " pymode
 """""""""""""""""""""""
 let g:pymode_options_max_line_length = 128
+" Disable rope, as I am using YouCompleteMe
+let g:pymode_rope = 0
 let g:pymode_rope_lookup_project = 1
 " Ignore E221 multiple spaces before operator [pep8]
 let g:pymode_lint_ignore = "E221"
